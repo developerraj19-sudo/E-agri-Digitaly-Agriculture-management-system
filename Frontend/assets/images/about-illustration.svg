@@ -1,0 +1,65 @@
+<svg width="520" height="380" viewBox="0 0 520 380" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="fieldGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#4CAF50"/>
+      <stop offset="100%" stop-color="#2E7D32"/>
+    </linearGradient>
+
+    <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#E3F2FD"/>
+      <stop offset="100%" stop-color="#BBDEFB"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Sky -->
+  <rect x="0" y="0" width="520" height="180" fill="url(#skyGrad)"/>
+
+  <!-- Sun -->
+  <circle cx="430" cy="70" r="35" fill="#FFA726"/>
+
+  <!-- Field -->
+  <path d="M0 180 Q260 140 520 180 V380 H0 Z" fill="url(#fieldGrad)"/>
+
+  <!-- Field Lines -->
+  <path d="M100 180 V380" stroke="#66BB6A" stroke-width="4"/>
+  <path d="M200 175 V380" stroke="#66BB6A" stroke-width="4"/>
+  <path d="M300 175 V380" stroke="#66BB6A" stroke-width="4"/>
+  <path d="M400 180 V380" stroke="#66BB6A" stroke-width="4"/>
+
+  <!-- Farmer Body -->
+  <rect x="210" y="200" width="60" height="90" rx="12" fill="#FFFFFF"/>
+  <rect x="220" y="290" width="15" height="45" fill="#5D4037"/>
+  <rect x="245" y="290" width="15" height="45" fill="#5D4037"/>
+
+  <!-- Farmer Head -->
+  <circle cx="240" cy="175" r="25" fill="#F1C27D"/>
+
+  <!-- Turban -->
+  <path d="M215 170 Q240 140 265 170 Z" fill="#FB8C00"/>
+
+  <!-- Tablet -->
+  <rect x="255" y="220" width="35" height="25" rx="4" fill="#263238"/>
+  <rect x="258" y="223" width="29" height="19" fill="#90CAF9"/>
+
+  <!-- Signal Waves -->
+  <path d="M290 210 Q310 190 330 210" stroke="#43A047" stroke-width="3" fill="none"/>
+  <path d="M290 200 Q310 175 330 200" stroke="#66BB6A" stroke-width="2" fill="none"/>
+
+  <!-- Sensor Pole -->
+  <rect x="120" y="210" width="8" height="70" fill="#455A64"/>
+  <rect x="110" y="190" width="28" height="22" rx="4" fill="#81C784"/>
+
+  <!-- Cloud -->
+  <ellipse cx="120" cy="80" rx="30" ry="18" fill="#FFFFFF"/>
+  <ellipse cx="145" cy="80" rx="25" ry="15" fill="#FFFFFF"/>
+  <ellipse cx="135" cy="65" rx="22" ry="14" fill="#FFFFFF"/>
+
+  <!-- Text -->
+  <text x="260" y="355" text-anchor="middle"
+        font-family="Segoe UI, Arial"
+        font-size="20"
+        fill="#FFFFFF"
+        font-weight="600">
+    Smart Digital Agriculture
+  </text>
+</svg>

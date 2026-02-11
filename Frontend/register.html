@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="assets/images/agri logo.png">
+    <title>Register - E-AGRI</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/auth.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div class="auth-container">
+        <div class="auth-left">
+            <div class="auth-brand">
+                <i class="fas fa-seedling"></i>
+                <span>E-AGRI</span>
+            </div>
+            <h1>Join E-AGRI Today!</h1>
+            <p>Create your account and start your digital agriculture journey</p>
+            <div class="auth-illustration">
+                <i class="fas fa-user-plus"></i>
+            </div>
+        </div>
+
+        <div class="auth-right">
+            <div class="auth-form-container">
+                <h2>Create Your Account</h2>
+                <p class="form-subtitle">Choose your role and get started</p>
+
+                <div id="alertMessage" class="alert" style="display: none;"></div>
+
+                <!-- Step Indicator -->
+                <div class="form-steps">
+                    <div class="form-step active" id="step1Indicator">
+                        <div class="step-number">1</div>
+                        <div class="step-label">Role</div>
+                    </div>
+                    <div class="form-step" id="step2Indicator">
+                        <div class="step-number">2</div>
+                        <div class="step-label">Account</div>
+                    </div>
+                    <div class="form-step" id="step3Indicator">
+                        <div class="step-number">3</div>
+                        <div class="step-label">Details</div>
+                    </div>
+                </div>
+
+                <form id="registerForm" class="auth-form">
+                    <input type="hidden" id="csrfToken" name="csrf_token" value="">
+
+                    <!-- Step 1: Role Selection -->
+                    <div class="form-step-content active" id="step1">
+                        <h3>Select Your Role</h3>
+                        <div class="role-selection">
+                            <div class="role-option" onclick="selectRole('farmer')">
+                                <input type="radio" name="role" value="farmer" id="roleFarmer" required>
+                                <i class="fas fa-user-tie"></i>
+                                <h4>Farmer</h4>
+                                <p>Buy products, get recommendations, access market data</p>
+                            </div>
+                            <div class="role-option" onclick="selectRole('dealer')">
+                                <input type="radio" name="role" value="dealer" id="roleDealer" required>
+                                <i class="fas fa-store"></i>
+                                <h4>Dealer</h4>
+                                <p>Sell products, manage inventory, reach farmers</p>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-primary btn-block" onclick="nextStep(2)">
+                            Continue <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+
+                    <!-- Step 2: Account Information -->
+                    <div class="form-step-content" id="step2">
+                        <h3>Account Information</h3>
+
+                        <div class="form-group">
+                            <label for="fullName" class="form-label">
+                                <i class="fas fa-user"></i> Full Name
+                            </label>
+                            <input type="text" id="fullName" name="fullName" class="form-control"
+                                placeholder="Enter your full name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email" class="form-label">
+                                <i class="fas fa-envelope"></i> Email Address
+                            </label>
+                            <input type="email" id="email" name="email" class="form-control"
+                                placeholder="your.email@example.com" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone" class="form-label">
+                                <i class="fas fa-phone"></i> Phone Number
+                            </label>
+                            <input type="tel" id="phone" name="phone" class="form-control" placeholder="9876543210"
+                                pattern="[0-9]{10}" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password" class="form-label">
+                                <i class="fas fa-lock"></i> Password
+                            </label>
+                            <div class="password-input">
+                                <input type="password" id="password" name="password" class="form-control"
+                                    placeholder="Minimum 8 characters" minlength="8" required>
+                                <button type="button" class="password-toggle" onclick="togglePassword('password')">
+                                    <i class="fas fa-eye" id="toggleIcon1"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="confirmPassword" class="form-label">
+                                <i class="fas fa-lock"></i> Confirm Password
+                            </label>
+                            <div class="password-input">
+                                <input type="password" id="confirmPassword" name="confirmPassword" class="form-control"
+                                    placeholder="Re-enter password" minlength="8" required>
+                                <button type="button" class="password-toggle"
+                                    onclick="togglePassword('confirmPassword')">
+                                    <i class="fas fa-eye" id="toggleIcon2"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="language" class="form-label">
+                                <i class="fas fa-language"></i> Preferred Language
+                            </label>
+                            <select id="language" name="language" class="form-control form-select">
+                                <option value="english">English</option>
+                                <option value="kannada">ಕನ್ನಡ (Kannada)</option>
+                                <option value="hindi">हिंदी (Hindi)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-buttons">
+                            <button type="button" class="btn btn-outline" onclick="prevStep(1)">
+                                <i class="fas fa-arrow-left"></i> Back
+                            </button>
+                            <button type="button" class="btn btn-primary" onclick="nextStep(3)">
+                                Continue <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Role-Specific Details -->
+                    <div class="form-step-content" id="step3">
+                        <!-- Farmer-Specific Fields -->
+                        <div id="farmerFields" style="display: none;">
+                            <h3>Farm Information</h3>
+
+                            <div class="form-group">
+                                <label for="farmLocation" class="form-label">
+                                    <i class="fas fa-map-marker-alt"></i> Farm Location
+                                </label>
+                                <input type="text" id="farmLocation" name="farmLocation" class="form-control"
+                                    placeholder="Village/Town name">
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="district" class="form-label">District</label>
+                                    <input type="text" id="district" name="district" class="form-control"
+                                        placeholder="District">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="state" class="form-label">State</label>
+                                    <select id="state" name="state" class="form-control form-select">
+                                        <option value="">Select State</option>
+                                        <option value="Karnataka">Karnataka</option>
+                                        <option value="Maharashtra">Maharashtra</option>
+                                        <option value="Tamil Nadu">Tamil Nadu</option>
+                                        <option value="Andhra Pradesh">Andhra Pradesh</option>
+                                        <option value="Kerala">Kerala</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="farmSize" class="form-label">
+                                        <i class="fas fa-expand"></i> Farm Size (Acres)
+                                    </label>
+                                    <input type="number" id="farmSize" name="farmSize" class="form-control"
+                                        placeholder="e.g., 5" step="0.1">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="soilType" class="form-label">
+                                        <i class="fas fa-mountain"></i> Soil Type
+                                    </label>
+                                    <select id="soilType" name="soilType" class="form-control form-select">
+                                        <option value="">Select Soil Type</option>
+                                        <option value="black">Black Soil</option>
+                                        <option value="red">Red Soil</option>
+                                        <option value="alluvial">Alluvial Soil</option>
+                                        <option value="clay">Clay Soil</option>
+                                        <option value="sandy">Sandy Soil</option>
+                                        <option value="loamy">Loamy Soil</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="primaryCrop" class="form-label">
+                                    <i class="fas fa-seedling"></i> Primary Crop
+                                </label>
+                                <input type="text" id="primaryCrop" name="primaryCrop" class="form-control"
+                                    placeholder="e.g., Rice, Wheat, Cotton">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="pincode" class="form-label">
+                                    <i class="fas fa-mail-bulk"></i> PIN Code
+                                </label>
+                                <input type="text" id="pincode" name="pincode" class="form-control"
+                                    placeholder="6-digit PIN code" pattern="[0-9]{6}">
+                            </div>
+                        </div>
+
+                        <!-- Dealer-Specific Fields -->
+                        <div id="dealerFields" style="display: none;">
+                            <h3>Business Information</h3>
+
+                            <div class="form-group">
+                                <label for="businessName" class="form-label">
+                                    <i class="fas fa-store"></i> Business Name
+                                </label>
+                                <input type="text" id="businessName" name="businessName" class="form-control"
+                                    placeholder="Your business/shop name">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="businessLicense" class="form-label">
+                                    <i class="fas fa-certificate"></i> Business License Number
+                                </label>
+                                <input type="text" id="businessLicense" name="businessLicense" class="form-control"
+                                    placeholder="License number (optional)">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="gstNumber" class="form-label">
+                                    <i class="fas fa-file-invoice"></i> GST Number
+                                </label>
+                                <input type="text" id="gstNumber" name="gstNumber" class="form-control"
+                                    placeholder="GST number (optional)">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="businessAddress" class="form-label">
+                                    <i class="fas fa-map-marker-alt"></i> Business Address
+                                </label>
+                                <textarea id="businessAddress" name="businessAddress" class="form-control" rows="3"
+                                    placeholder="Complete business address"></textarea>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="dealerDistrict" class="form-label">District</label>
+                                    <input type="text" id="dealerDistrict" name="dealerDistrict" class="form-control"
+                                        placeholder="District">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="dealerState" class="form-label">State</label>
+                                    <select id="dealerState" name="dealerState" class="form-control form-select">
+                                        <option value="">Select State</option>
+                                        <option value="Karnataka">Karnataka</option>
+                                        <option value="Maharashtra">Maharashtra</option>
+                                        <option value="Tamil Nadu">Tamil Nadu</option>
+                                        <option value="Andhra Pradesh">Andhra Pradesh</option>
+                                        <option value="Kerala">Kerala</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="alert alert-info" style="display: block; margin-top: 20px;">
+                                <i class="fas fa-info-circle"></i>
+                                <strong>Note:</strong> Your dealer account will be pending admin verification. You'll be
+                                notified once approved.
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="termsAgree" required>
+                                <span>I agree to the <a href="#" target="_blank">Terms & Conditions</a> and <a href="#"
+                                        target="_blank">Privacy Policy</a></span>
+                            </label>
+                        </div>
+
+                        <div class="form-buttons">
+                            <button type="button" class="btn btn-outline" onclick="prevStep(2)">
+                                <i class="fas fa-arrow-left"></i> Back
+                            </button>
+                            <button type="submit" class="btn btn-primary" id="registerBtn">
+                                <i class="fas fa-user-check"></i> Create Account
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="auth-footer">
+                    <p>Already have an account? <a href="login.html">Login here</a></p>
+                    <a href="index.html" class="back-home">
+                        <i class="fas fa-arrow-left"></i> Back to Home
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/register.js"></script>
+
+    <script>
+        // Get CSRF token when page loads
+        document.addEventListener('DOMContentLoaded', async function () {
+            try {
+                const response = await fetch('../backend/api/csrf.php');
+                const data = await response.json();
+                document.getElementById('csrfToken').value = data.token;
+            } catch (error) {
+                console.error('Failed to load CSRF token:', error);
+            }
+        });
+    </script>
+</body>
+
+</html>

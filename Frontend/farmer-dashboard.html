@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="assets/images/agri logo.png">
+    <title>Farmer Dashboard - E-AGRI</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Dashboard Navigation -->
+    <nav class="dashboard-nav">
+        <div class="nav-brand">
+            <i class="fas fa-seedling"></i>
+            <span>E-AGRI</span>
+        </div>
+        <div class="nav-user">
+            <div class="cart-icon" onclick="viewCart()">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="badge" id="cartBadge" style="display: none;">0</span>
+            </div>
+            <div class="language-selector">
+                <i class="fas fa-globe"></i>
+                <select id="languageSelector">
+                    <option value="english">English</option>
+                    <option value="kannada">ಕನ್ನಡ</option>
+                    <option value="hindi">हिंदी</option>
+                </select>
+            </div>
+            <div class="notification-icon">
+                <i class="fas fa-bell"></i>
+                <span class="badge">3</span>
+            </div>
+            <div class="user-dropdown">
+                <div class="user-info" onclick="toggleUserMenu()">
+                    <img src="assets/images/default-avatar.png" alt="User" class="user-avatar">
+                    <span id="userName">Loading...</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="dropdown-menu" id="userMenu">
+                    <a href="#" onclick="showProfile()"><i class="fas fa-user"></i> Profile</a>
+                    <a href="#" onclick="showSettings()"><i class="fas fa-cog"></i> Settings</a>
+                    <a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <ul class="sidebar-menu">
+            <li class="menu-item active" data-section="dashboard">
+                <i class="fas fa-home"></i>
+                <span>Dashboard</span>
+            </li>
+            <li class="menu-item" data-section="weather">
+                <i class="fas fa-cloud-sun"></i>
+                <span>Weather</span>
+            </li>
+            <li class="menu-item" data-section="market-prices">
+                <i class="fas fa-chart-line"></i>
+                <span>Market Prices</span>
+            </li>
+            <li class="menu-item" data-section="marketplace">
+                <i class="fas fa-shopping-cart"></i>
+                <span>Marketplace</span>
+            </li>
+            <li class="menu-item" data-section="my-orders">
+                <i class="fas fa-box"></i>
+                <span>My Orders</span>
+            </li>
+            <li class="menu-item" data-section="ai-assistant">
+                <i class="fas fa-robot"></i>
+                <span>AI Assistant</span>
+            </li>
+            <li class="menu-item" data-section="news">
+                <i class="fas fa-newspaper"></i>
+                <span>Agriculture News</span>
+            </li>
+        </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Dashboard Overview Section -->
+        <section id="dashboard" class="content-section active">
+            <div class="section-header">
+                <h1>Welcome, <span id="farmerName">Farmer</span>!</h1>
+                <p>Here's your agriculture dashboard overview</p>
+            </div>
+
+            <!-- Quick Stats -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon weather-icon">
+                        <i class="fas fa-temperature-high"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="currentTemp">--°C</h3>
+                        <p>Current Temperature</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon price-icon">
+                        <i class="fas fa-rupee-sign"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="avgPrice">₹--</h3>
+                        <p>Average Crop Price</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon order-icon">
+                        <i class="fas fa-shopping-bag"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="totalOrders">0</h3>
+                        <p>Total Orders</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon product-icon">
+                        <i class="fas fa-boxes"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="productCount">500+</h3>
+                        <p>Available Products</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Today's Highlights -->
+            <div class="highlights-section">
+                <h2>Today's Highlights</h2>
+                <div class="highlights-grid">
+                    <!-- Weather Card -->
+                    <div class="highlight-card weather-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-cloud-sun"></i> Weather Forecast</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="weather-current">
+                                <div class="weather-icon-large">
+                                    <i class="fas fa-sun" id="weatherIcon"></i>
+                                </div>
+                                <div class="weather-details">
+                                    <h2 id="weatherTemp">28°C</h2>
+                                    <p id="weatherCondition">Sunny</p>
+                                    <p id="weatherLocation">Bengaluru, Karnataka</p>
+                                </div>
+                            </div>
+                            <div class="weather-info-grid">
+                                <div class="weather-info-item">
+                                    <i class="fas fa-tint"></i>
+                                    <div>
+                                        <p class="label">Humidity</p>
+                                        <p class="value" id="humidity">65%</p>
+                                    </div>
+                                </div>
+                                <div class="weather-info-item">
+                                    <i class="fas fa-wind"></i>
+                                    <div>
+                                        <p class="label">Wind Speed</p>
+                                        <p class="value" id="windSpeed">12 km/h</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- AI Recommendations Card -->
+                    <div class="highlight-card recommendations-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-lightbulb"></i> AI Recommendations</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="recommendation-item">
+                                <div class="recommendation-icon">
+                                    <i class="fas fa-seedling"></i>
+                                </div>
+                                <div class="recommendation-text">
+                                    <h4>Best Crop for Your Soil</h4>
+                                    <p id="recommendedCrop">Based on your soil type, we recommend cotton for this season.</p>
+                                </div>
+                            </div>
+                            <div class="recommendation-item">
+                                <div class="recommendation-icon">
+                                    <i class="fas fa-flask"></i>
+                                </div>
+                                <div class="recommendation-text">
+                                    <h4>Fertilizer Suggestion</h4>
+                                    <p id="recommendedFertilizer">Use NPK 10:26:26 @ 50kg/acre for optimal growth.</p>
+                                </div>
+                            </div>
+                            <button class="btn btn-primary btn-sm" onclick="openAIAssistant()">
+                                Get More Recommendations
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Latest Market Prices -->
+            <div class="market-section">
+                <div class="section-title-row">
+                    <h2>Latest Market Prices</h2>
+                    <a href="#" onclick="switchSection('market-prices')" class="view-all-link">View All →</a>
+                </div>
+                <div class="market-table-container">
+                    <table class="market-table">
+                        <thead>
+                            <tr>
+                                <th>Crop Name</th>
+                                <th>Market</th>
+                                <th>Min Price</th>
+                                <th>Max Price</th>
+                                <th>Modal Price</th>
+                                <th>Trend</th>
+                            </tr>
+                        </thead>
+                        <tbody id="marketPricesTable">
+                            <tr>
+                                <td colspan="6" class="text-center">Loading market prices...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Latest News -->
+            <div class="news-section">
+                <div class="section-title-row">
+                    <h2>Latest Agriculture News</h2>
+                    <a href="#" onclick="switchSection('news')" class="view-all-link">View All →</a>
+                </div>
+                <div class="news-grid" id="latestNews">
+                    <div class="news-card">
+                        <div class="news-image">
+                            <img src="assets/images/news-placeholder.jpg" alt="News">
+                        </div>
+                        <div class="news-content">
+                            <span class="news-badge">Agriculture</span>
+                            <h3>Loading news...</h3>
+                            <p>Please wait while we fetch the latest updates.</p>
+                            <div class="news-meta">
+                                <span><i class="fas fa-calendar"></i> Today</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Other sections will be loaded dynamically -->
+        <section id="weather" class="content-section">
+            <h1>Weather Information</h1>
+            <!-- Weather content -->
+        </section>
+
+        <section id="market-prices" class="content-section">
+            <h1>Market Prices</h1>
+            <!-- Market prices content -->
+        </section>
+
+        <section id="marketplace" class="content-section">
+            <h1>Marketplace</h1>
+            <!-- Marketplace content -->
+        </section>
+
+        <section id="my-orders" class="content-section">
+            <h1>My Orders</h1>
+            <!-- Orders content -->
+        </section>
+
+        <section id="ai-assistant" class="content-section">
+            <h1>AI Assistant</h1>
+            <!-- AI Assistant content -->
+        </section>
+
+        <section id="news" class="content-section">
+            <h1>Agriculture News</h1>
+            <!-- News content -->
+        </section>
+    </main>
+
+    <!-- Voice Assistant Button -->
+    <button class="voice-assistant-btn" onclick="startVoiceInput()">
+        <i class="fas fa-microphone"></i>
+    </button>
+
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/cart.js"></script>
+    <script src="assets/js/language.js"></script>
+    <script src="assets/js/dashboard.js"></script>
+    <style>
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+            font-size: 22px;
+            color: var(--primary-green);
+            margin-right: 20px;
+        }
+
+        .cart-icon .badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #ff4757;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+    </style>
+    <script>
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            const user = eagri.checkAuth();
+            
+            if (user.role !== 'farmer') {
+                window.location.href = 'index.html';
+                return;
+            }
+            
+            // Load user data
+            document.getElementById('userName').textContent = user.full_name;
+            document.getElementById('farmerName').textContent = user.full_name.split(' ')[0];
+            
+            // Load dashboard data
+            loadDashboardData();
+            
+            // Setup sidebar navigation
+            setupSidebarNavigation();
+        });
+        
+        async function loadDashboardData() {
+            // Load weather, prices, and news
+            await Promise.all([
+                loadWeatherData(),
+                loadMarketPrices(),
+                loadLatestNews(),
+                loadUserStats()
+            ]);
+        }
+        
+        async function loadWeatherData() {
+            // Fetch weather data from API
+            // For now, using placeholder data
+            console.log('Loading weather data...');
+        }
+        
+        async function loadMarketPrices() {
+            // Fetch market prices from API
+            console.log('Loading market prices...');
+        }
+        
+        async function loadLatestNews() {
+            // Fetch latest news from API
+            console.log('Loading news...');
+        }
+        
+        async function loadUserStats() {
+            // Fetch user statistics
+            console.log('Loading user stats...');
+        }
+        
+        function setupSidebarNavigation() {
+            const menuItems = document.querySelectorAll('.menu-item');
+            menuItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const sectionId = this.getAttribute('data-section');
+                    switchSection(sectionId);
+                });
+            });
+        }
+        
+        function switchSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Remove active class from all menu items
+            document.querySelectorAll('.menu-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Add active class to selected menu item
+            document.querySelector(`[data-section="${sectionId}"]`).classList.add('active');
+        }
+        
+        function toggleUserMenu() {
+            document.getElementById('userMenu').classList.toggle('show');
+        }
+        
+        function startVoiceInput() {
+            eagri.showNotification('Voice assistant activated', 'info');
+            // Implement voice recognition
+        }
+        
+        function openAIAssistant() {
+            switchSection('ai-assistant');
+        }
+        
+        // Close dropdown when clicking outside
+        window.addEventListener('click', function(e) {
+            if (!e.target.matches('.user-info') && !e.target.closest('.user-info')) {
+                const dropdown = document.getElementById('userMenu');
+                if (dropdown.classList.contains('show')) {
+                    dropdown.classList.remove('show');
+                }
+            }
+        });
+    </script>
+</body>
+</html>
